@@ -741,7 +741,7 @@ class StubGen:
             if full_name.startswith(self.module.__name__ + "."):
                 # Strip away the module prefix for local classes
                 return full_name[len(self.module.__name__) + 1 :]
-            elif mod_name == "typing" or mod_name == "collections.abc":
+            elif mod_name in ("typing", "typing_extensions", "collections.abc"):
                 # Import frequently-occurring typing classes and ABCs directly
                 return self.import_object(mod_name, cls_name)
             else:
