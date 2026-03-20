@@ -130,6 +130,15 @@ struct UniqueInt {
 };
 std::map<int, std::weak_ptr<UniqueInt>> UniqueInt::instances;
 
+struct DefVisitor : nb::def_visitor<DefVisitor> {
+  int mem;
+};
+
+// Default- and aggregate-initialization compile.
+DefVisitor dv1;
+DefVisitor dv2 { };
+DefVisitor dv3 { {}, 1 };
+
 int wrapper_tp_traverse(PyObject *self, visitproc visit, void *arg) {
     // We must traverse the implicit dependency of an object on its associated type object.
     Py_VISIT(Py_TYPE(self));
